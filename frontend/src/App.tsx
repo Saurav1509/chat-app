@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import socket from './socket'
-import ConnectionState from './components/ConnectionState'
+import { ConnectionState } from './components/ConnectionState'
+import { ConnectionManager } from './components/ConnectionManager'
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
   return (
     <div>
       <ConnectionState isConnected={isConnected} />
+      <ConnectionManager />
     </div>
   )
 }
