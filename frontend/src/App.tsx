@@ -3,11 +3,13 @@ import './App.css'
 import socket from './socket'
 import { ConnectionState } from './components/ConnectionState'
 import { ConnectionManager } from './components/ConnectionManager'
+import { ChatMessageEvent } from './components/ChatMessageEvent'
 
 function App() {
 
   const [isConnected, setIsConnected] = useState(socket.connected)
 
+  //initiate connection with Backend websoket
   useEffect(() => {
     function onConnect() {
       setIsConnected(true);
@@ -30,6 +32,7 @@ function App() {
   return (
     <div>
       <ConnectionState isConnected={isConnected} />
+      <ChatMessageEvent />
       <ConnectionManager />
     </div>
   )
