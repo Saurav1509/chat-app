@@ -4,10 +4,12 @@ import socket from './socket'
 import { ConnectionState } from './components/ConnectionState'
 import { ConnectionManager } from './components/ConnectionManager'
 import { ChatMessageEvent } from './components/ChatMessageEvent'
+import { NewChatDisplay } from './components/NewChatDisplay'
 
 function App() {
 
   const [isConnected, setIsConnected] = useState(socket.connected)
+  const [newChat, setNewChat] = useState<string[]>([])
 
   //initiate connection with Backend websoket
   useEffect(() => {
@@ -22,6 +24,7 @@ function App() {
 
     socket.on('connect', onConnect);
     socket.on('disconnect', onDisconnect);
+    socket.on('chat message', (msg: string) => setNewChat(prevChat => [...prevChat, msg]));
 
     return () => {
       socket.off('connect', onConnect);
@@ -34,6 +37,7 @@ function App() {
       <ConnectionState isConnected={isConnected} />
       <ChatMessageEvent />
       <ConnectionManager />
+      <NewChatDisplay newChat={newChat} />
     </div>
   )
 }
